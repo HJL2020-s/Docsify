@@ -23,6 +23,23 @@
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+<textarea id="markdown-editor"></textarea>
+
+<script>
+  var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+</script>
+<button onclick="saveChanges()">Save</button>
+
+<script>
+  function saveChanges() {
+    var content = simplemde.value();
+    // 这里可以通过 API 将内容发送到后端服务器
+    console.log(content);
+  }
+</script>
 
 </body>
 </html>
