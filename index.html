@@ -7,39 +7,61 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 </head>
 <body>
+  <!-- Docsify App -->
   <div id="app"></div>
+
+  <!-- Markdown Editor Section -->
+  <div style="margin-top: 20px;">
+    <h2>Markdown Editor</h2>
+    <textarea id="editor"></textarea>
+    <button onclick="saveChanges()">Save Changes</button>
+  </div>
+
+  <!-- Docsify Configuration -->
   <script>
     window.$docsify = {
-      name: '',
-      repo: ''
+      name: 'My Docsify Project',
+      repo: 'https://github.com/your-repo/your-repo-name',
+      // Disable initial rendering to let the editor update content first
+      noInit: true,
     }
   </script>
-  <!-- Docsify v4 -->
+  
+  <!-- Docsify Script -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-<textarea id="editor"></textarea>
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<script>
-  var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  
+  <!-- SimpleMDE Script -->
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  
+  <script>
+    var simplemde = new SimpleMDE({ 
+      element: document.getElementById("editor"),
+      initialValue: "# Welcome to Docsify\n\nYou can edit this content using the editor above!",
+    });
 
-<textarea id="markdown-editor"></textarea>
+    // Function to save changes and update Docsify view
+    function saveChanges() {
+      var content = simplemde.value();  // Get the content from editor
+      localStorage.setItem('docsifyContent', content);  // Save to localStorage
+      // Dynamically update Docsify content
+      document.getElementById('app').innerHTML = content;
+      // Reinitialize Docsify to render updated content
+      window.$docsify.init();
+    }
 
-<script>
-  var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
-</script>
-<button onclick="saveChanges()">Save</button>
-
-<script>
-  function saveChanges() {
-    var content = simplemde.value();
-    // 这里可以通过 API 将内容发送到后端服务器
-    console.log(content);
-  }
-</script>
+    // Load saved content from localStorage when page reloads
+    window.onload = function() {
+      var savedContent = localStorage.getItem('docsifyContent');
+      if (savedContent) {
+        simplemde.value(savedContent);  // Load saved content into editor
+        document.getElementById('app').innerHTML = savedContent;
+        window.$docsify.init();  // Render Docsify with saved content
+      }
+    }
+  </script>
 
 </body>
 </html>
