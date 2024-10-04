@@ -8,5 +8,3 @@
 待补充
 ## **RK356X**
 待补充
-
-> An awesome project.
