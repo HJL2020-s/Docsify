@@ -8,6 +8,7 @@
 待补充
 ## **RK356X**
 待补充
+<<<<<<< HEAD
 
 # **安装Docker**
 ## apt换源
@@ -126,3 +127,5 @@ docker run -d \
 
 
 
+=======
+>>>>>>> 610cf393e48fe7fbcb618995cb4e0a7adbc68c8d
